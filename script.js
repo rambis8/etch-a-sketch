@@ -1,5 +1,6 @@
 const container = document.getElementById("container");
 const gridButton = document.getElementById("gridButton");
+const clearBtn = document.getElementById("clearBtn");
 
 gridButton.addEventListener('click', (e) => {
     const numbOfSquares = prompt('Number of squares per side in the new grid?');
@@ -10,18 +11,26 @@ gridButton.addEventListener('click', (e) => {
     createGrid(numbOfSquares, numbOfSquares)
 })
 
+clearBtn.addEventListener('click', (e) => {
+    squares = document.getElementsByClassName("grid-item");
+    for (let square of squares) {
+        square.style.setProperty('background-color', 'lightgray');
+    }
+})
+
 function createGrid(rows, cols) {
     container.innerHTML = '';
     container.style.setProperty('--grid-rows', rows);
     container.style.setProperty('--grid-cols', cols);
     for (let c = 0; c < (rows * cols); c++) {
         let square = document.createElement('div');
-        square.addEventListener('mouseenter', (e) => {
+        square.addEventListener('mousedown', (e) => {
             square.style.setProperty('background-color', 'black')
         })
-        square.addEventListener('mouseleave', (e) => {
-            square.style.setProperty('background-color', 'lightgray');
-            square.style.setProperty('transition', 'background-color 1s ease' )
+        square.addEventListener('mouseenter', (e) => {
+            if (e.buttons == 1) {
+                square.style.setProperty('background-color', 'black');
+            }
         })
         container.appendChild(square).className = "grid-item";
     };
