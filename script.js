@@ -25,12 +25,16 @@ function createGrid(rows, cols) {
     for (let c = 0; c < (rows * cols); c++) {
         let square = document.createElement('div');
         square.addEventListener('mousedown', (e) => {
+            e.preventDefault();
             square.style.setProperty('background-color', 'black')
         })
         square.addEventListener('mouseenter', (e) => {
             if (e.buttons == 1) {
                 square.style.setProperty('background-color', 'black');
             }
+        })
+        square.addEventListener('drag', (e) => {
+            e.preventDefault();
         })
         container.appendChild(square).className = "grid-item";
     };
